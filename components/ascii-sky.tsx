@@ -44,7 +44,7 @@ const skyBands: SkyBand[] = [
 
 function makeStars(seed: number, layer: "far" | "near"): Star[] {
   const random = seededRandom(seed);
-  const density = layer === "far" ? 1 : 0.32;
+  const density = layer === "far" ? 0.72 : 0.28;
   const stars: Star[] = [];
 
   skyBands.forEach((band) => {
@@ -63,8 +63,8 @@ function makeStars(seed: number, layer: "far" | "near"): Star[] {
         ? sizeRoll < 0.86 ? "pixel-1" : "pixel-2"
         : sizeRoll < 0.52 ? "pixel-1" : sizeRoll < 0.9 ? "pixel-2" : "pixel-3";
       const opacity = layer === "far"
-        ? 0.28 + random() * 0.34
-        : 0.56 + random() * 0.32;
+        ? 0.28 + random() * 0.32
+        : 0.52 + random() * 0.28;
       const starIndex = stars.length;
 
       stars.push({
@@ -72,9 +72,9 @@ function makeStars(seed: number, layer: "far" | "near"): Star[] {
         y: band.from + random() * (band.to - band.from),
         size,
         opacity,
-        twinkles: starIndex % (layer === "far" ? 17 : 9) === 0,
-        delay: -(random() * 14),
-        duration: 4.5 + random() * 5.5,
+        twinkles: starIndex % 5 === 0,
+        delay: -(random() * 8),
+        duration: 2.8 + random() * 3.2,
       });
     }
   });
@@ -86,20 +86,20 @@ const farStars = makeStars(0x4d554849, "far");
 const nearStars = makeStars(0x524b4150, "near");
 
 const crossStars = [
-  { x: 94.2, y: 3.1, opacity: 0.82, focal: false },
-  { x: 5.1, y: 10.2, opacity: 0.68, focal: false },
-  { x: 90.4, y: 18.6, opacity: 0.78, focal: true },
-  { x: 7.6, y: 25.4, opacity: 0.65, focal: false },
-  { x: 71.2, y: 33.1, opacity: 0.76, focal: false },
-  { x: 4.8, y: 41.8, opacity: 0.72, focal: true },
-  { x: 94.1, y: 48.3, opacity: 0.7, focal: false },
-  { x: 12.4, y: 57.2, opacity: 0.76, focal: false },
-  { x: 88.8, y: 64.7, opacity: 0.86, focal: true },
-  { x: 5.6, y: 72.4, opacity: 0.7, focal: false },
-  { x: 77.1, y: 79.2, opacity: 0.74, focal: false },
-  { x: 95.1, y: 86.5, opacity: 0.8, focal: false },
-  { x: 10.8, y: 91.7, opacity: 0.78, focal: true },
-  { x: 82.6, y: 96.1, opacity: 0.72, focal: false },
+  { x: 94.2, y: 3.1, opacity: 0.65, focal: false },
+  { x: 5.1, y: 10.2, opacity: 0.58, focal: false },
+  { x: 90.4, y: 18.6, opacity: 0.72, focal: true },
+  { x: 7.6, y: 25.4, opacity: 0.58, focal: false },
+  { x: 71.2, y: 33.1, opacity: 0.68, focal: false },
+  { x: 4.8, y: 41.8, opacity: 0.68, focal: true },
+  { x: 94.1, y: 48.3, opacity: 0.62, focal: false },
+  { x: 12.4, y: 57.2, opacity: 0.68, focal: false },
+  { x: 88.8, y: 64.7, opacity: 0.78, focal: true },
+  { x: 5.6, y: 72.4, opacity: 0.62, focal: false },
+  { x: 77.1, y: 79.2, opacity: 0.68, focal: false },
+  { x: 95.1, y: 86.5, opacity: 0.72, focal: false },
+  { x: 10.8, y: 91.7, opacity: 0.72, focal: true },
+  { x: 82.6, y: 96.1, opacity: 0.65, focal: false },
 ] as const;
 
 const clusters = [
@@ -112,10 +112,10 @@ const clusters = [
 ] as const;
 
 const shootingStars = [
-  { x: 76, y: 7.5, delay: "2s", duration: "1.45s", dx: "-180px", dy: "112px", glyph: "*----" },
-  { x: 22, y: 31, delay: "12s", duration: "1.6s", dx: "165px", dy: "102px", glyph: "+···" },
-  { x: 84, y: 58, delay: "22s", duration: "1.5s", dx: "-150px", dy: "94px", glyph: "*---" },
-  { x: 18, y: 82, delay: "32s", duration: "1.65s", dx: "175px", dy: "108px", glyph: "+····" },
+  { x: 92, y: 1.5, delay: "0.5s", duration: "10.0s", dx: "-600px", dy: "380px", direction: "shoot-left" },
+  { x: 8, y: 2.0, delay: "5.5s", duration: "10.0s", dx: "600px", dy: "380px", direction: "shoot-right" },
+  { x: 85, y: 35.0, delay: "3.0s", duration: "10.0s", dx: "-600px", dy: "380px", direction: "shoot-left" },
+  { x: 10, y: 65.0, delay: "8.0s", duration: "10.0s", dx: "600px", dy: "380px", direction: "shoot-right" },
 ] as const;
 
 type RidgePoint = readonly [x: number, y: number];
@@ -255,11 +255,31 @@ function PixelAtmosphere() {
         <path className={`sky-haze haze-${band.name}`} d={steppedBand(band.points, band.depth)} key={band.name} />
       ))}
 
-      {/* Sparse stepped cloud fragments give the open sky scale. */}
-      <g className="pixel-cloud cloud-a"><path d="M90 690H125V670H160V650H205V665H240V690H275V710H90Z" /></g>
-      <g className="pixel-cloud cloud-b"><path d="M690 1180H720V1160H755V1135H795V1150H825V1175H865V1195H690Z" /></g>
-      <g className="pixel-cloud cloud-c"><path d="M195 2860H225V2840H260V2815H300V2830H330V2860H365V2880H195Z" /></g>
-      <g className="pixel-cloud cloud-d"><path d="M735 4740H765V4715H800V4695H845V4720H880V4745H910V4765H735Z" /></g>
+      {/* Moving stepped cloud fragments across vertical sections */}
+      <g className="pixel-cloud cloud-a cloud-top">
+        <path d="M540 120H590V95H640V70H700V90H750V120H800V145H540Z" />
+      </g>
+      <g className="pixel-cloud cloud-b cloud-top">
+        <path d="M70 90H120V65H170V40H230V60H280V90H330V115H70Z" />
+      </g>
+      <g className="pixel-cloud cloud-c cloud-top">
+        <path d="M660 1380H705V1355H750V1330H805V1350H845V1380H895V1405H660Z" />
+      </g>
+      <g className="pixel-cloud cloud-d">
+        <path d="M640 2860H685V2835H730V2810H785V2830H825V2860H870V2885H640Z" />
+      </g>
+      <g className="pixel-cloud cloud-a">
+        <path d="M80 4420H130V4395H180V4370H240V4390H290V4420H340V4445H80Z" />
+      </g>
+      <g className="pixel-cloud cloud-b">
+        <path d="M650 6100H695V6075H745V6045H795V6065H835V6095H885V6120H650Z" />
+      </g>
+      <g className="pixel-cloud cloud-c">
+        <path d="M150 7820H195V7795H245V7765H295V7785H335V7815H380V7840H150Z" />
+      </g>
+      <g className="pixel-cloud cloud-d">
+        <path d="M600 9180H645V9155H690V9130H745V9150H785V9180H830V9205H600Z" />
+      </g>
 
       {/* A single vertical landscape: finely stepped, multi-peak ranges build depth. */}
       {mountainRanges.map((range) => (
@@ -305,7 +325,11 @@ export function AsciiSky() {
             "--shoot-y": star.dy,
           };
 
-          return <span className="shooting-star" style={style} key={`shooting-${index}`}>{star.glyph}</span>;
+          return (
+            <span className={`shooting-star ${star.direction}`} style={style} key={`shooting-${index}`}>
+              <i className="shooting-streak" />
+            </span>
+          );
         })}
       </div>
     </div>

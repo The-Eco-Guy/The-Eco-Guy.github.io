@@ -2,7 +2,7 @@ import { chromium } from "playwright-core";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
-const baseURL = process.env.BASE_URL ?? "http://localhost:3000";
+const baseURL = process.env.BASE_URL ?? "http://localhost:3005";
 const chrome = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const output = path.resolve("artifacts/ui-audit");
 await mkdir(output, { recursive: true });

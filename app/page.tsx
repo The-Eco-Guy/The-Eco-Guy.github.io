@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown, ArrowRight, ArrowUpRight, Braces, Cloud, Database, FileText, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Cloud, FileText, type LucideIcon } from "lucide-react";
 import {
   siDocker,
   siFastapi,
@@ -27,14 +27,12 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 type TechSkill = { label: string; brand?: SimpleIcon; fallback?: LucideIcon };
 
 const capabilities: Array<{
-  icon: LucideIcon;
   code: string;
   title: string;
   text: string;
   skills: TechSkill[];
 }> = [
   {
-    icon: Database,
     code: "01",
     title: "Backend systems",
     text: "Typed Python APIs, explicit state, persistence, concurrency control, and failure-aware service boundaries.",
@@ -46,7 +44,6 @@ const capabilities: Array<{
     ],
   },
   {
-    icon: Braces,
     code: "02",
     title: "Full-stack workflows",
     text: "Role-specific React products that make multi-step operational processes clear, traceable, and usable.",
@@ -58,7 +55,6 @@ const capabilities: Array<{
     ],
   },
   {
-    icon: ShieldCheck,
     code: "03",
     title: "Reliable software",
     text: "Deterministic orchestration, validation, fallback paths, and measured behavior for systems with real constraints.",
@@ -138,14 +134,12 @@ export default function Home() {
         <Reveal><div className="section-heading section-heading-simple"><h2>Featured work.</h2></div></Reveal>
         <div className="primary-projects">{primaryProjects.map(project => <ProjectCard key={project.slug} project={project} variant="feature" />)}</div>
 
-        <Reveal><div className="supporting-heading"><p className="eyebrow">AUTONOMOUS SYSTEMS</p></div></Reveal>
         <div className="supporting-project">
           <Reveal><article className="project-card compact project-formula-manipal">
             <div className="card-proof">
               <ProjectProof proof={{ type: "website", src: "https://formulamanipal.com/", title: "Formula Manipal official website", caption: "Formula Manipal official team website.", sourceUrl: "https://formulamanipal.com/" }} compact />
             </div>
             <div className="project-copy">
-              <p className="eyebrow">AUTONOMOUS SYSTEMS</p>
               <h3><a className="project-title-link" href="https://formulamanipal.com/" target="_blank" rel="noreferrer">Formula Manipal Driverless</a></h3>
               <p className="project-summary">Control and planning work for an autonomous Formula Student car, developed and evaluated in a ROS2 simulation environment.</p>
               <div className="mini-metrics">
@@ -168,18 +162,18 @@ export default function Home() {
 
       <section id="capabilities" className="capabilities-section"><div className="section-shell">
         <Reveal><div className="section-heading section-heading-simple"><h2>Core skills.</h2></div></Reveal>
-        <div className="capability-grid">{capabilities.map(({ icon: Icon, ...capability }, index) => <Reveal key={capability.code} delay={index * .05}><article><div className="cap-top"><Icon /><span>{capability.code}</span></div><h3>{capability.title}</h3><p>{capability.text}</p><div className="skill-logos" aria-label={`${capability.title} technologies`}>{capability.skills.map(skill => <TechMark skill={skill} key={skill.label} />)}</div></article></Reveal>)}</div>
+        <div className="capability-grid">{capabilities.map((capability, index) => <Reveal key={capability.code} delay={index * .05}><article><div className="cap-top"><span>{capability.code}</span></div><h3>{capability.title}</h3><p>{capability.text}</p><div className="skill-logos" aria-label={`${capability.title} technologies`}>{capability.skills.map(skill => <TechMark skill={skill} key={skill.label} />)}</div></article></Reveal>)}</div>
       </div></section>
 
       <section id="experience" className="trajectory section-shell">
         <Reveal><div className="section-heading section-heading-simple"><h2>Experience.</h2></div></Reveal>
-        <div className="trajectory-list">{experienceItems.map((experience, index) => <Reveal key={experience.organization} delay={index * .05}><article><span>0{index + 1}</span><p>{experience.period}</p><div><h3>{experience.link ? <a href={experience.link} target="_blank" rel="noreferrer" className="project-title-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>{experience.organization} <ArrowUpRight size={14} /></a> : experience.organization}</h3><strong>{experience.role}</strong><small>{experience.kind}</small></div><p>{experience.summary}</p></article></Reveal>)}</div>
+        <div className="trajectory-list">{experienceItems.map((experience, index) => <Reveal key={experience.organization} delay={index * .05}><article><span>0{index + 1}</span><p>{experience.period}</p><div><h3>{experience.link ? <a href={experience.link} target="_blank" rel="noreferrer" className="project-title-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>{experience.organization} <ArrowUpRight size={14} /></a> : experience.organization}</h3><strong>{experience.role}</strong>{experience.kind ? <small>{experience.kind}</small> : null}</div><p>{experience.summary}</p></article></Reveal>)}</div>
       </section>
 
-      <section id="education" className="education-section"><div className="section-shell"><Reveal><div className="education-grid"><div><p className="eyebrow">EDUCATION</p><h2>{education.organization}</h2></div><div><b>{education.role}</b><p>{education.summary}</p><span>{education.period}</span></div></div></Reveal></div></section>
+      <section id="education" className="education-section"><div className="section-shell"><Reveal><div className="education-grid"><div><p className="eyebrow">EDUCATION</p><h2>{education.organization}</h2></div><div><b>{education.role}</b><p>CGPA: 8.36 / 10.0</p><p><strong>Coursework:</strong> Distributed systems, algorithms, database engineering, and networks.</p><span>{education.period}</span></div></div></Reveal></div></section>
 
       <section id="recognition" className="recognition-section section-shell">
-        <Reveal><div className="section-heading"><div><p className="eyebrow">HONORS & AWARDS</p><h2>Awards & recognition.</h2></div><p>Verified competition results and the work<br />presented behind them.</p></div></Reveal>
+        <Reveal><div className="section-heading section-heading-simple"><div><p className="eyebrow">HONORS & AWARDS</p><h2>Awards & recognition.</h2></div></div></Reveal>
         
         <div className="recognition-media achievements-scroll" tabIndex={0} role="region" aria-label="Achievements scrollable gallery">
           {recognition.map(item => (
@@ -200,8 +194,7 @@ export default function Home() {
           <Reveal>
             <article className="research-callout victory-panel">
               <div className="victory-panel-inner">
-                <p className="eyebrow">AEROSPACE RESEARCH & DEFENSE RECORDS</p>
-                <h3>Aerospace Victories & Technical Records</h3>
+                <h3>Aerospace Systems Engineering & Mission Design</h3>
 
                 <div className="victory-sections">
                   <div className="victory-block">
@@ -214,14 +207,14 @@ export default function Home() {
                         <span className="victory-year">2026</span>
                         <div className="victory-info">
                           <span className="victory-title">Planetary Defense & Orbital Systems</span>
-                          <span className="victory-subtitle">Global 1st Place · Space Elevator Infrastructure & Defense</span>
+                          <span className="victory-subtitle">Global 1st Place</span>
                           <a
                             className="victory-link"
                             target="_blank"
                             rel="noreferrer"
                             href="https://youtu.be/3GCDDyIPPyM"
                           >
-                            Watch 2026 Defense <ArrowUpRight size={13} />
+                            Video <ArrowUpRight size={13} />
                           </a>
                         </div>
                       </li>
@@ -229,14 +222,14 @@ export default function Home() {
                         <span className="victory-year">2025</span>
                         <div className="victory-info">
                           <span className="victory-title">Orbital Infrastructure & L5 Tether Dynamics</span>
-                          <span className="victory-subtitle">Global 1st Place · University Challenge Defense</span>
+                          <span className="victory-subtitle">Global 1st Place</span>
                           <a
                             className="victory-link"
                             target="_blank"
                             rel="noreferrer"
                             href="https://youtu.be/xcGijZnxn4E"
                           >
-                            Watch 2025 Defense <ArrowUpRight size={13} />
+                            Video <ArrowUpRight size={13} />
                           </a>
                         </div>
                       </li>
@@ -273,7 +266,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="contact"><div className="section-shell"><Reveal><p className="eyebrow">CONTACT</p><h2>Let’s build something dependable.</h2><p className="contact-lede">I’m interested in software engineering internships and collaborations involving backend, full-stack, or autonomous systems.</p><a className="contact-email" href="mailto:kapoormuhir@gmail.com">kapoormuhir@gmail.com <ArrowRight /></a></Reveal></div></section>
+      <section id="contact" className="contact"><div className="section-shell"><Reveal><h2>Interested in projects involving full stack development, autonomous systems or space? Contact</h2><a className="contact-email" href="mailto:kapoormuhir@gmail.com">kapoormuhir@gmail.com <ArrowRight /></a></Reveal></div></section>
     </main>
     <Footer />
   </>;

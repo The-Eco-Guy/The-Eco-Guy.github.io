@@ -20,7 +20,7 @@ function FormulaDiagram() {
 export function ProjectProof({ proof, compact = false }: { proof: ProjectProofData; compact?: boolean }) {
   if (proof.type === "website") return <figure className={`project-proof website-proof ${compact ? "compact" : ""}`}>
     <div className="proof-stage"><iframe loading="lazy" src={proof.src} title={proof.title} sandbox="allow-scripts allow-same-origin allow-popups allow-forms" /></div>
-    <figcaption>{proof.caption}<a href={proof.sourceUrl} target="_blank" rel="noreferrer">Open website</a></figcaption>
+    <figcaption>{proof.caption}</figcaption>
   </figure>;
 
   if (proof.type === "videos") return <figure className={`project-proof video-proof ${compact ? "compact" : ""}`}>
@@ -32,6 +32,6 @@ export function ProjectProof({ proof, compact = false }: { proof: ProjectProofDa
     <div className={`proof-stage ${proof.type === "image" && proof.src.includes("ekalavya") ? "proof-contain" : ""}`}>
       {proof.type === "image" ? <Image src={proof.src} alt={proof.alt} fill unoptimized sizes={compact ? "(max-width: 800px) 100vw, 44vw" : "(max-width: 800px) 100vw, 70vw"} /> : proof.variant === "honeypot" ? <HoneypotDiagram /> : <FormulaDiagram />}
     </div>
-    <figcaption>{proof.caption}{proof.sourceUrl && <a href={proof.sourceUrl} target="_blank" rel="noreferrer">View source</a>}</figcaption>
+    <figcaption>{proof.caption}</figcaption>
   </figure>;
 }

@@ -30,7 +30,7 @@ export type Project = {
   live?: string;
 };
 
-export type Experience = { period: string; organization: string; role: string; kind: string; summary: string; link?: string };
+export type Experience = { period: string; organization: string; role: string; kind?: string; summary: string; link?: string };
 export type Recognition = { year: string; result: string; name: string; detail: string; image: string; alt: string; fit?: "cover" | "contain" };
 
 export const projects: Project[] = [
@@ -88,9 +88,9 @@ export const projects: Project[] = [
     period: "2024 - 2026",
     summary: "One unified platform for applicants, universities, and the Ministry of Tribal Affairs (MoTA, SIH26239), replacing manual scrutiny with a 4-tier document extraction cascade, deterministic JSON rules engine, Gazette phonetic name matching, and 21-day institutional SLA auto-escalation.",
     metrics: [
-      { value: "82% Faster", label: "scrutiny overhead", context: "55 min manual review cut to 10 min exception handling", source: "Ekalavya SIH presentation (Slide 5)" },
-      { value: "<1 Sec", label: "cohort attestation", context: "Nodal officer verifies entire student cohort via cryptographically signed CSV", source: "Ekalavya SIH presentation (Slide 4)" },
-      { value: "Zero Leakage", label: "PFMS idempotency", context: "Pre-flight ABPS verification & SHA-256 audit ledger", source: "Ekalavya SIH presentation (Slide 5)" },
+      { value: "82% Faster", label: "review time", context: "55 min manual review cut to 10 min exception handling", source: "Ekalavya SIH presentation (Slide 5)" },
+      { value: "<1 Sec", label: "batch verification", context: "Nodal officer verifies entire student cohort via cryptographically signed CSV", source: "Ekalavya SIH presentation (Slide 4)" },
+      { value: "Zero Leakage", label: "duplicate payment prevention", context: "Pre-flight ABPS verification & SHA-256 audit ledger", source: "Ekalavya SIH presentation (Slide 5)" },
     ],
     stack: ["FastAPI", "Python", "React", "TypeScript", "PostgreSQL", "PaddleOCR", "PP-Structure", "Qwen2.5-VL", "PyMuPDF", "Celery", "Redis", "Docker"],
     challenge: "Rajya Sabha records showed 825 scholarship grievances in 2025–26, while verification delays caused over half of foreign NOS awardees to miss university admission intake dates and NFST scholars to face up to 1-year instalment waits. Manual scrutiny took 55 minutes per application, universities stalled verifications without accountability, and indigenous students were routinely disqualified over minor certificate transliteration variances across revenue offices.",
@@ -174,9 +174,9 @@ export const projects: Project[] = [
 ];
 
 export const experiences: Experience[] = [
-  { period: "Sep 2025 - present", organization: "Formula Manipal", role: "Driverless Software Engineer", kind: "Autonomous Racing Team", summary: "Control, planning, and ROS2 integration for the driverless autonomous racing vehicle in the EUFS simulator.", link: "https://formulamanipal.com/" },
+  { period: "Sep 2025 - present", organization: "Formula Manipal", role: "Driverless Software Engineer", summary: "Control, planning, and ROS2 integration for the driverless autonomous racing vehicle in the EUFS simulator.", link: "https://formulamanipal.com/" },
   { period: "2024 - present", organization: "Manipal Institute of Technology", role: "B.Tech, Computer Science & Engineering", kind: "Education", summary: "CGPA 8.36 / 10.0. Core coursework in distributed systems, algorithms, database engineering, and networks." },
-  { period: "2022 - 2023", organization: "Space Settlement Design Competitions", role: "Head of Space Club", kind: "Student Leadership", summary: "Led infrastructure and life-support subsystem engineering across national, Asian regional, and world-final teams, and mentored a team of 20 juniors." },
+  { period: "2022 - 2023", organization: "Space Settlement Design Competitions", role: "Head of Space Club", summary: "Led infrastructure and life-support subsystem engineering across national, Asian regional, and world-final teams, and mentored a team of 20 juniors." },
 ];
 
 export const recognition: Recognition[] = [
