@@ -10,8 +10,6 @@ type PixelStyle = CSSProperties & {
 type ShootingStarStyle = CSSProperties & {
   "--shoot-delay": string;
   "--shoot-duration": string;
-  "--shoot-x": string;
-  "--shoot-y": string;
 };
 
 type Star = {
@@ -112,10 +110,10 @@ const clusters = [
 ] as const;
 
 const shootingStars = [
-  { x: 92, y: 1.5, delay: "0.5s", duration: "10.0s", dx: "-600px", dy: "380px", direction: "shoot-left" },
-  { x: 8, y: 2.0, delay: "5.5s", duration: "10.0s", dx: "600px", dy: "380px", direction: "shoot-right" },
-  { x: 85, y: 35.0, delay: "3.0s", duration: "10.0s", dx: "-600px", dy: "380px", direction: "shoot-left" },
-  { x: 10, y: 65.0, delay: "8.0s", duration: "10.0s", dx: "600px", dy: "380px", direction: "shoot-right" },
+  { x: 94, y: 2.0, delay: "0s", duration: "28s" },
+  { x: 90, y: 28.0, delay: "7s", duration: "28s" },
+  { x: 96, y: 53.0, delay: "14s", duration: "28s" },
+  { x: 88, y: 76.0, delay: "21s", duration: "28s" },
 ] as const;
 
 type RidgePoint = readonly [x: number, y: number];
@@ -321,12 +319,10 @@ export function AsciiSky() {
             top: `${star.y}%`,
             "--shoot-delay": star.delay,
             "--shoot-duration": star.duration,
-            "--shoot-x": star.dx,
-            "--shoot-y": star.dy,
           };
 
           return (
-            <span className={`shooting-star ${star.direction}`} style={style} key={`shooting-${index}`}>
+            <span className="shooting-star shoot-left pixel-shooting-star" style={style} key={`shooting-${index}`}>
               <i className="shooting-streak" />
             </span>
           );

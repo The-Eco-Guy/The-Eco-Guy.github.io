@@ -130,48 +130,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="work" className="section-shell work-section">
-        <Reveal><div className="section-heading section-heading-simple"><h2>Featured work.</h2></div></Reveal>
-        <div className="primary-projects">{primaryProjects.map(project => <ProjectCard key={project.slug} project={project} variant="feature" />)}</div>
-
-        <div className="supporting-project">
-          <Reveal><article className="project-card compact project-formula-manipal">
-            <div className="card-proof">
-              <ProjectProof proof={{ type: "website", src: "https://formulamanipal.com/", title: "Formula Manipal official website", caption: "Formula Manipal official team website.", sourceUrl: "https://formulamanipal.com/" }} compact />
-            </div>
-            <div className="project-copy">
-              <h3><a className="project-title-link" href="https://formulamanipal.com/" target="_blank" rel="noreferrer">Formula Manipal Driverless</a></h3>
-              <p className="project-summary">Control and planning work for an autonomous Formula Student car, developed and evaluated in a ROS2 simulation environment.</p>
-              <div className="mini-metrics">
-                <div title="Modular perception-to-actuation pipeline running at 100 Hz. Source: Technical resource document"><b>100 Hz</b><span>CONTROL LOOP</span></div>
-                <div title="Trajectory tracking controller compared with Stanley steering in EUFS. Source: Technical resource document"><b>20–38%</b><span>LAP GAIN</span></div>
-                <div title="Collision-free local path planning in the simulated Formula Student environment. Source: Technical resource document"><b>Collision-free</b><span>PATH PLANNING</span></div>
-              </div>
-              <div className="project-stack" aria-label="Technologies">
-                <span>C++</span><span>Python</span><span>ROS2 Humble</span><span>MPC</span><span>Linux</span>
-              </div>
-              <div className="project-actions">
-                <a aria-label="Visit Formula Manipal team website" className="text-link" target="_blank" rel="noreferrer" href="https://formulamanipal.com/">Team website <ArrowUpRight size={16} /></a>
-              </div>
-            </div>
-          </article></Reveal>
-        </div>
-
-        <Reveal><div className="secondary-projects">{secondaryProjects.map(project => <article key={project.title}><span>{project.type}</span><h3>{project.title}</h3><p>{project.text}</p><div className="secondary-actions"><a target="_blank" rel="noreferrer" href={project.href}>View repository <ArrowUpRight size={15} /></a>{project.live && <a target="_blank" rel="noreferrer" href={project.live}>Live application <ArrowUpRight size={15} /></a>}</div></article>)}</div></Reveal>
-      </section>
-
-      <section id="capabilities" className="capabilities-section"><div className="section-shell">
-        <Reveal><div className="section-heading section-heading-simple"><h2>Core skills.</h2></div></Reveal>
-        <div className="capability-grid">{capabilities.map((capability, index) => <Reveal key={capability.code} delay={index * .05}><article><div className="cap-top"><span>{capability.code}</span></div><h3>{capability.title}</h3><p>{capability.text}</p><div className="skill-logos" aria-label={`${capability.title} technologies`}>{capability.skills.map(skill => <TechMark skill={skill} key={skill.label} />)}</div></article></Reveal>)}</div>
-      </div></section>
-
-      <section id="experience" className="trajectory section-shell">
-        <Reveal><div className="section-heading section-heading-simple"><h2>Experience.</h2></div></Reveal>
-        <div className="trajectory-list">{experienceItems.map((experience, index) => <Reveal key={experience.organization} delay={index * .05}><article><span>0{index + 1}</span><p>{experience.period}</p><div><h3>{experience.link ? <a href={experience.link} target="_blank" rel="noreferrer" className="project-title-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>{experience.organization} <ArrowUpRight size={14} /></a> : experience.organization}</h3><strong>{experience.role}</strong>{experience.kind ? <small>{experience.kind}</small> : null}</div><p>{experience.summary}</p></article></Reveal>)}</div>
-      </section>
-
-      <section id="education" className="education-section"><div className="section-shell"><Reveal><div className="education-grid"><div><p className="eyebrow">EDUCATION</p><h2>{education.organization}</h2></div><div><b>{education.role}</b><p>CGPA: 8.36 / 10.0</p><p><strong>Coursework:</strong> Distributed systems, algorithms, database engineering, and networks.</p><span>{education.period}</span></div></div></Reveal></div></section>
-
       <section id="recognition" className="recognition-section section-shell">
         <Reveal><div className="section-heading section-heading-simple"><div><p className="eyebrow">HONORS & AWARDS</p><h2>Awards & recognition.</h2></div></div></Reveal>
         
@@ -265,6 +223,48 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <section id="work" className="section-shell work-section">
+        <Reveal><div className="section-heading section-heading-simple"><h2>Featured work.</h2></div></Reveal>
+        <div className="primary-projects">{primaryProjects.map(project => <ProjectCard key={project.slug} project={project} variant="feature" />)}</div>
+
+        <div className="supporting-project">
+          <Reveal><article className="project-card compact project-formula-manipal">
+            <div className="card-proof">
+              <ProjectProof proof={{ type: "website", src: "https://formulamanipal.com/", title: "Formula Manipal official website", caption: "Formula Manipal official team website.", sourceUrl: "https://formulamanipal.com/" }} compact />
+            </div>
+            <div className="project-copy">
+              <h3><a className="project-title-link" href="https://formulamanipal.com/" target="_blank" rel="noreferrer">Formula Manipal Driverless</a></h3>
+              <p className="project-summary">Control and planning work for an autonomous Formula Student car, developed and evaluated in a ROS2 simulation environment.</p>
+              <div className="mini-metrics">
+                <div title="Modular perception-to-actuation pipeline running at 100 Hz. Source: Technical resource document"><b>100 Hz</b><span>CONTROL LOOP</span></div>
+                <div title="Trajectory tracking controller compared with Stanley steering in EUFS. Source: Technical resource document"><b>20–38%</b><span>LAP GAIN</span></div>
+                <div title="Collision-free local path planning in the simulated Formula Student environment. Source: Technical resource document"><b>Collision-free</b><span>PATH PLANNING</span></div>
+              </div>
+              <div className="project-stack" aria-label="Technologies">
+                <span>C++</span><span>Python</span><span>ROS2 Humble</span><span>MPC</span><span>Linux</span>
+              </div>
+              <div className="project-actions">
+                <a aria-label="Visit Formula Manipal team website" className="text-link" target="_blank" rel="noreferrer" href="https://formulamanipal.com/">Team website <ArrowUpRight size={16} /></a>
+              </div>
+            </div>
+          </article></Reveal>
+        </div>
+
+        <Reveal><div className="secondary-projects">{secondaryProjects.map(project => <article key={project.title}><span>{project.type}</span><h3>{project.title}</h3><p>{project.text}</p><div className="secondary-actions"><a target="_blank" rel="noreferrer" href={project.href}>View repository <ArrowUpRight size={15} /></a>{project.live && <a target="_blank" rel="noreferrer" href={project.live}>Live application <ArrowUpRight size={15} /></a>}</div></article>)}</div></Reveal>
+      </section>
+
+      <section id="capabilities" className="capabilities-section"><div className="section-shell">
+        <Reveal><div className="section-heading section-heading-simple"><h2>Core skills.</h2></div></Reveal>
+        <div className="capability-grid">{capabilities.map((capability, index) => <Reveal key={capability.code} delay={index * .05}><article><div className="cap-top"><span>{capability.code}</span></div><h3>{capability.title}</h3><p>{capability.text}</p><div className="skill-logos" aria-label={`${capability.title} technologies`}>{capability.skills.map(skill => <TechMark skill={skill} key={skill.label} />)}</div></article></Reveal>)}</div>
+      </div></section>
+
+      <section id="experience" className="trajectory section-shell">
+        <Reveal><div className="section-heading section-heading-simple"><h2>Experience.</h2></div></Reveal>
+        <div className="trajectory-list">{experienceItems.map((experience, index) => <Reveal key={experience.organization} delay={index * .05}><article><span>0{index + 1}</span><p>{experience.period}</p><div><h3>{experience.link ? <a href={experience.link} target="_blank" rel="noreferrer" className="project-title-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>{experience.organization} <ArrowUpRight size={14} /></a> : experience.organization}</h3><strong>{experience.role}</strong>{experience.kind ? <small>{experience.kind}</small> : null}</div><p>{experience.summary}</p></article></Reveal>)}</div>
+      </section>
+
+      <section id="education" className="education-section"><div className="section-shell"><Reveal><div className="education-grid"><div><p className="eyebrow">EDUCATION</p><h2>{education.organization}</h2></div><div><b>{education.role}</b><p>CGPA: 8.36 / 10.0</p><p><strong>Coursework:</strong> Distributed systems, algorithms, database engineering, and networks.</p><span>{education.period}</span></div></div></Reveal></div></section>
 
       <section id="contact" className="contact"><div className="section-shell"><Reveal><h2>Interested in projects involving full stack development, autonomous systems or space? Contact</h2><a className="contact-email" href="mailto:kapoormuhir@gmail.com">kapoormuhir@gmail.com <ArrowRight /></a></Reveal></div></section>
     </main>

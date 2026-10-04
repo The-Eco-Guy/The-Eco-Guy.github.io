@@ -69,6 +69,8 @@ for (const viewport of [
     nonFooterSocials: document.querySelectorAll("main .social-icons, header .social-icons").length,
     techMarks: document.querySelectorAll(".skill-logos .tech-mark svg").length,
     gridlockLiveLinks: document.querySelectorAll('a[href="https://bangalore-illegal-parking-spots-grdilockhackathon2bm.streamlit.app/"]').length,
+    mainSectionOrder: [...document.querySelectorAll("main > section")].map(section => section.id || (section.classList.contains("hero") ? "hero" : "")),
+    awardsNavLinks: document.querySelectorAll('header nav a[href="/#recognition"]').length,
   }));
 
   if (metrics.scrollWidth > metrics.clientWidth + 1) failures.push(`${viewport.name}: horizontal overflow ${metrics.scrollWidth}px > ${metrics.clientWidth}px`);
@@ -89,6 +91,10 @@ for (const viewport of [
   if (metrics.footerSocials !== 3 || metrics.nonFooterSocials !== 0) failures.push(`${viewport.name}: social logos should appear only in the footer`);
   if (metrics.techMarks !== 12) failures.push(`${viewport.name}: expected 12 monochrome technical skill marks, found ${metrics.techMarks}`);
   if (metrics.gridlockLiveLinks !== 1) failures.push(`${viewport.name}: Bangalore Gridlock live application link is missing or duplicated`);
+  if (metrics.mainSectionOrder[0] !== "hero" || metrics.mainSectionOrder[1] !== "recognition" || metrics.mainSectionOrder[2] !== "work") failures.push(`${viewport.name}: expected hero → recognition → work, got ${metrics.mainSectionOrder.join(" → ")}`);
+  if (metrics.awardsNavLinks !== 1) failures.push(`${viewport.name}: expected one Awards navigation link, found ${metrics.awardsNavLinks}`);
+  const maximumPageHeight = viewport.name === "desktop" ? 6003 : 8958;
+  if (pageHeight > maximumPageHeight) failures.push(`${viewport.name}: page remains too tall after pacing refresh (${pageHeight}px > ${maximumPageHeight}px)`);
   for (const phrase of deprecatedCopy) if (metrics.bodyText.toUpperCase().includes(phrase)) failures.push(`${viewport.name}: deprecated brand copy remains: ${phrase}`);
 
   const cardSprites = await page.locator(".project-sprite, .case-sprite").count();
@@ -100,12 +106,21 @@ for (const viewport of [
   if (viewport.name === "mobile" && !(await page.locator("header nav").isVisible())) failures.push("mobile: primary navigation is hidden");
   const minNavHeight = await page.locator("header nav a").first().evaluate(node => node.getBoundingClientRect().height);
   if (viewport.name === "mobile" && minNavHeight < 44) failures.push(`mobile: navigation target is ${minNavHeight}px high`);
+  if (viewport.name === "mobile") {
+    const navTops = await page.locator("header nav a").evaluateAll(links => links.map(link => Math.round(link.getBoundingClientRect().top)));
+    if (new Set(navTops).size !== 1) failures.push(`mobile: navigation wrapped across rows (${navTops.join(", ")})`);
+  }
 
   await page.locator("header nav a").first().click();
   await page.waitForFunction(() => location.hash === "#work");
   await page.waitForTimeout(300);
   const anchor = await page.evaluate(() => ({ top: document.querySelector("#work").getBoundingClientRect().top, header: document.querySelector("header").getBoundingClientRect().bottom }));
   if (anchor.top < anchor.header - 1) failures.push(`${viewport.name}: sticky header obscures work anchor`);
+  await page.locator('header nav a[href="/#recognition"]').click();
+  await page.waitForFunction(() => location.hash === "#recognition");
+  await page.waitForTimeout(300);
+  const awardsAnchor = await page.evaluate(() => ({ top: document.querySelector("#recognition").getBoundingClientRect().top, header: document.querySelector("header").getBoundingClientRect().bottom }));
+  if (awardsAnchor.top < awardsAnchor.header - 1) failures.push(`${viewport.name}: sticky header obscures Awards anchor`);
   await context.close();
 }
 
@@ -118,11 +133,32 @@ const motionState = await motionPage.evaluate(() => ({
   shootingStars: document.querySelectorAll(".shooting-star").length,
   cloudAnimation: getComputedStyle(document.querySelector(".pixel-cloud")).animationName,
   crossTwinkle: getComputedStyle(document.querySelector(".pixel-cross-layer span:nth-child(3n)")).animationName,
+  shootingDirections: [...document.querySelectorAll(".shooting-star")].map(star => ({
+    left: star.classList.contains("shoot-left"),
+    right: star.classList.contains("shoot-right"),
+    pixel: star.classList.contains("pixel-shooting-star"),
+    delay: parseFloat(getComputedStyle(star).animationDelay),
+    duration: parseFloat(getComputedStyle(star).animationDuration),
+  })),
+  streakStyle: (() => {
+    const style = getComputedStyle(document.querySelector(".shooting-streak"));
+    return { backgroundImage: style.backgroundImage, borderRadius: style.borderRadius, filter: style.filter };
+  })(),
 }));
 if (!motionState.pixelSky) failures.push("pixel sky element not found");
 if (motionState.pointerEvents !== "none") failures.push("star field can intercept pointer input");
 if (motionState.twinkleAnimation !== "pixelTwinkle") failures.push("subtle pixel twinkle animation is not active");
 if (motionState.shootingStars !== 4) failures.push(`expected four infrequent shooting-star paths, found ${motionState.shootingStars}`);
+if (motionState.shootingDirections.some(star => !star.left || star.right || !star.pixel)) failures.push("shooting stars do not share the upper-right to lower-left pixel path");
+const shootingSchedule = [...motionState.shootingDirections].sort((a, b) => a.delay - b.delay);
+if (shootingSchedule.length === 4) {
+  const activeWindow = shootingSchedule[0].duration * 0.13;
+  const gaps = shootingSchedule.map((star, index) => index === shootingSchedule.length - 1
+    ? shootingSchedule[0].delay + star.duration - star.delay
+    : shootingSchedule[index + 1].delay - star.delay);
+  if (gaps.some(gap => gap < activeWindow)) failures.push(`shooting-star visible windows overlap (${gaps.join(", ")})`);
+}
+if (motionState.streakStyle.backgroundImage !== "none" || motionState.streakStyle.borderRadius !== "0px" || motionState.streakStyle.filter !== "none") failures.push(`shooting-star trail is not hard-edged pixel art (${JSON.stringify(motionState.streakStyle)})`);
 if (motionState.cloudAnimation !== "cloudDriftRight") failures.push(`cloud drift animation is not active (${motionState.cloudAnimation})`);
 if (motionState.crossTwinkle !== "crossTwinkle") failures.push(`cross-star twinkle animation is not active (${motionState.crossTwinkle})`);
 await motionPage.close();

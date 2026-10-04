@@ -11,13 +11,12 @@ Primary conversion: open a software case study, inspect the evidence, then use e
 ### Homepage
 
 1. Hero: “Reliable software for complex systems,” MIT Manipal education, Formula Manipal context, work and email actions.
-2. Credibility strip: education, current driverless role, HCL finalist placement, and graduation date.
+2. Awards and recognition: competition results, event media, and Space Systems as supporting modeled research.
 3. Primary work: Agentic AI Honeypot, then Ekalavya Scholarship Platform.
 4. Supporting work: Formula Manipal Driverless, then concise data projects.
 5. Core skills: backend systems, full-stack workflows, and reliable software, each tied to tools and demonstrated work.
 6. Experience, followed by a visually separate education section.
-7. Awards and recognition: competition results, event media, and Space Systems as supporting modeled research.
-8. Direct contact panel.
+7. Direct contact panel.
 
 ### Case studies
 
@@ -64,7 +63,7 @@ Recognition photography and certificates belong only in the combined “Research
 - Three restrained haze regions and four sparse ridge-only dither regions add depth without creating a page-wide dotted grid.
 - Mountain pixels describe irregular ridgelines rather than becoming large rectangular decoration; quiet sky remains visible around interface sections.
 - The seeded star field is dominated by hard-edged 1-2px blue-white points, supported by manually placed clusters, compact crosses, and four focal stars.
-- A varied subset of existing stars and crosses twinkles with staggered stepped opacity. Four deterministic ASCII shooting-star paths move slowly one at a time at long intervals, remain behind all content, use shorter trails on mobile, and disappear entirely under reduced-motion preferences.
+- A varied subset of existing stars and crosses twinkles with staggered stepped opacity. Four deterministic pixel shooting-star paths move from upper-right to lower-left one at a time at long intervals, remain behind all content, use shorter trails on mobile, and disappear entirely under reduced-motion preferences.
 - Sparse pixel clouds drift slowly in opposing directions and become static under reduced-motion preferences.
 - Mobile reduces star density, and `prefers-reduced-motion` leaves every star static.
 - The hero retains the approved presentation photograph and keeps the headline region visually calm.
@@ -90,6 +89,8 @@ The UI audit must fail when any of the following is false:
 - At least 190 deterministic tiny pixel stars, five composed clusters, five mountain ranges, three haze regions, four ridge-texture regions, and 10-18 distinctive cross stars render.
 - The sky element spans the full document height, has `pointer-events: none`, and contains no canvas particle system.
 - Star twinkle, cross-star twinkle, and cloud drift are active with normal motion and disabled under reduced-motion preferences.
+- Awards and recognition immediately follows the hero, precedes featured work, and has a visible header navigation link.
+- All four shooting stars use discrete square pixel trails, travel only from upper-right to lower-left, and have non-overlapping visible windows.
 - Ekalavya includes a prototype disclaimer, Formula includes simulator scope, and Space Systems includes modeled-research scope.
 - The sticky header does not obscure in-page anchors.
 - The unfocused skip link remains visually hidden and becomes available on keyboard focus.
